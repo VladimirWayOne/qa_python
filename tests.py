@@ -28,6 +28,16 @@ class TestBooksCollector:
         collector.add_new_book('Книга с рейтингом 1')
         assert collector.get_book_rating('Книга с рейтингом 1') == 1
 
+    def test_add_new_book_add_two_simmilar_book_added_only_one_book(self):
+        """
+        Добавление 2х книг с одинаковым названием. Ожидаемый результат: в колекцию книг добавлена только одна книга
+        """
+        collector = BooksCollector()
+        collector.add_new_book('Книга близнец')
+        collector.add_new_book('Книга близнец')
+        assert len(collector.get_books_rating()) == 1
+
+
     # Тесты для метода set_book_rating
     def test_set_book_rating_rating_0_book_rating_is_1(self):
         """
@@ -82,3 +92,4 @@ class TestBooksCollector:
         collector.add_new_book('Книга с рейтингом 11')
         collector.set_book_rating('Книга с рейтингом 11', 11)
         assert collector.get_book_rating('Книга с рейтингом 11') == 1
+
