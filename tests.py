@@ -132,5 +132,46 @@ class TestBooksCollector:
 
     # Тесты для методов add_book_in_favorites + get_list_of_favorites_books
     def test_get_list_of_favorites_books_empty_favorites_books_list_return_empty_list(self):
+        """
+        Проверка вызова метода get_list_of_favorites_books без добавленных книг. Ожидаемый результат: пустой список
+        """
         collector = BooksCollector()
+        assert len(collector.get_list_of_favorites_books()) == 0
+
+    def test_add_book_in_favorites_add_book_in_favorites_return_one_book(self):
+        """
+        Проверка вызова метода get_list_of_favorites_books c добавленной книгой. Ожидаемый результат: вернет список
+        с добавленной книгой
+        """
+        collector = BooksCollector()
+        collector.add_new_book('Любимая книга')
+        collector.add_book_in_favorites('Любимая книга')
+        assert collector.get_list_of_favorites_books() == ['Любимая книга']
+
+    def test_add_book_in_favorites_add_nonexistent_book_favorite_books_list_empty(self):
+        """
+        Попытка добавить книгу в список favorites, если её нет в словаре books_rating. Ожидаемый результат: пустой список
+        get_list_of_favorites_books
+        """
+        collector = BooksCollector()
+        collector.add_book_in_favorites('Любимая книга, которой нет в списке')
+        assert len(collector.get_list_of_favorites_books()) == 0
+
+    # Тесты метода delete_book_from_favorites
+    def test_delete_book_from_favorites_add_and_delete_book_from_favorites_empty_favorite_list(self):
+        """
+        Попытка добавить книгу в favorites и удалить её. Ожидаемый результат: пустой список get_list_of_favorites_books
+        """
+        collector = BooksCollector()
+        collector.add_new_book('Книга для удаления из фаворитных')
+        collector.add_book_in_favorites('Книга для удаления из фаворитных')
+        collector.delete_book_from_favorites('Книга для удаления из фаворитных')
+        assert len(collector.get_list_of_favorites_books()) == 0
+
+    def test_delete_book_from_favorites_delete_nonexist_book_from_favorites_empty_favorite_list(self):
+        """
+        Попытка удаалить книгу, не существующую в favorites. Ожидаемый результат:  get_list_of_favorites_books
+        """
+        collector = BooksCollector()
+        collector.delete_book_from_favorites('Книга для удаления из фаворитных')
         assert len(collector.get_list_of_favorites_books()) == 0
