@@ -3,3 +3,4 @@
 *.toml
 *.coverage
 *.lock
+conftest.py
