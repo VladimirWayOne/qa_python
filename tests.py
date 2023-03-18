@@ -170,7 +170,7 @@ class TestBooksCollector:
 
     def test_delete_book_from_favorites_delete_nonexist_book_from_favorites_empty_favorite_list(self):
         """
-        Попытка удаалить книгу, не существующую в favorites. Ожидаемый результат:  get_list_of_favorites_books
+        Попытка удаалить книгу, не существующую в favorites. Ожидаемый результат: пустой get_list_of_favorites_books
         """
         collector = BooksCollector()
         collector.delete_book_from_favorites('Книга для удаления из фаворитных')
