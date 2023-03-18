@@ -1,2 +1,5 @@
 .idea
 *pycache*
+*.toml
+*.coverage
+*.lock
