@@ -37,6 +37,12 @@ class TestBooksCollector:
         collector.add_new_book('Книга близнец')
         assert len(collector.get_books_rating()) == 1
 
+    def test_get_book_rating_book_doesnt_exist_got_rating_is_none(self):
+        """
+        Проверка рейтинга недобавленной книги. Ожидаемый результат: None
+        """
+        collector = BooksCollector()
+        assert collector.get_book_rating('Несуществующая книга') is None
 
     # Тесты для метода set_book_rating
     def test_set_book_rating_rating_0_book_rating_is_1(self):
@@ -93,3 +99,38 @@ class TestBooksCollector:
         collector.set_book_rating('Книга с рейтингом 11', 11)
         assert collector.get_book_rating('Книга с рейтингом 11') == 1
 
+    def test_set_book_rating_book_doesnt_exist_book_rating_is_None(self):
+        """
+        Попытка установить рейтинг для несуществующей книги = 4. Ожидаемый результат: None
+        """
+        collector = BooksCollector()
+        collector.set_book_rating('Несуществующая книга', 4)
+        assert collector.get_book_rating('Несуществующая книга') is None
+
+    # Тесты для метода get_books_with_specific_rating
+    def test_get_books_with_specific_rating_get_books_with_rating_2_return_2_books(self):
+        """
+        Попытка добавить две книги с рейтингом 2 и одну книгу с рейтингом 1, отобразить список книг с рейтингом 2.
+        Ожидаемый результат: Выведен список из двух книг с рейтингом два.
+        """
+        collector = BooksCollector()
+        collector.add_new_book('Книга с рейтингом 2')
+        collector.set_book_rating('Книга с рейтингом 2', 2)
+        collector.add_new_book('Еще книга с рейтингом 2')
+        collector.set_book_rating('Еще книга с рейтингом 2', 2)
+        collector.add_new_book('Книга с рейтингом 1')
+        result = collector.get_books_with_specific_rating(2)
+        assert len(result) == 2 and 'Книга с рейтингом 2' in result and 'Еще книга с рейтингом 2' in result
+
+    def test_get_books_with_specific_rating_rating_doesnt_exist_return_empty_list(self):
+        """
+        Попытка найти книги с несуществующим рейтингом. Ожидаемый результат: пустой список
+        """
+        collector = BooksCollector()
+        collector.add_new_book('Книга с рейтингом 1')
+        assert len(collector.get_books_with_specific_rating(2)) == 0
+
+    # Тесты для методов add_book_in_favorites + get_list_of_favorites_books
+    def test_get_list_of_favorites_books_empty_favorites_books_list_return_empty_list(self):
+        collector = BooksCollector()
+        assert len(collector.get_list_of_favorites_books()) == 0
